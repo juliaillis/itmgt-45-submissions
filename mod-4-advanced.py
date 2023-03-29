@@ -211,33 +211,4 @@ def eta(first_stop, second_stop, route_map):
     '''
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    legs = {
-     ("upd","admu"):{
-         "travel_time_mins":10
-     },
-     ("admu","dlsu"):{
-         "travel_time_mins":35
-     },
-     ("dlsu","upd"):{
-         "travel_time_mins":55
-     }
-}
-
-    legs = {
-    ('a1', 'a2'): {
-        'travel_time_mins': 10
-    },
-    ('a2', 'b1'): {
-        'travel_time_mins': 10230
-    },
-    ('b1', 'a1'): {
-        'travel_time_mins': 1
-    }
-}
-    current_stop = first_stop
-    time_elapsed = 0
-    while current_stop != second_stop:
-        next_stop = route_map[current_stop]
-        time_elapsed += next_stop[current_stop]
-        current_stop = next_stop[current_stop]
-    return time_elapsed
+ 
