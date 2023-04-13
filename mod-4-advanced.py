@@ -211,4 +211,44 @@ def eta(first_stop, second_stop, route_map):
     '''
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
+    if first_stop == second_stop:
+        return 0
+    
+    time_elapsed = 0
+    current_stop = first_stop
+    
+    while current_stop != second_stop:
+        next_leg = None
+        for leg, info in route_map.items():
+            if leg[0] == current_stop:
+                next_leg = leg
+                break
+        time_elapsed += info["travel_time_mins"]
+        current_stop = next_leg[1]
+    
+    return time_elapsed
+
+legs1 = {
+     ("upd","admu"):{
+         "travel_time_mins":10
+     },
+     ("admu","dlsu"):{
+         "travel_time_mins":35
+     },
+     ("dlsu","upd"):{
+         "travel_time_mins":55
+     }
+}
+
+legs2 = {
+    ('a1', 'a2'): {
+        'travel_time_mins': 10
+    },
+    ('a2', 'b1'): {
+        'travel_time_mins': 10230
+    },
+    ('b1', 'a1'): {
+        'travel_time_mins': 1
+    }
+}
  
