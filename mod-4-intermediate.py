@@ -38,13 +38,14 @@ def shift_letter(letter, shift):
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     #Note: The part of the code to wrap around feature of the letters was generated with the assistance of CHATGPT
-    if letter == ' ':
-        return ' '
+    if letter == " ":
+        return " "
     else:
-        uni_code = ord(letter) - ord('A')
-        shifted_uni_code = (uni_code + shift) % 26
-        shifted_letter = chr(shifted_uni_code + ord('A'))
-        return shifted_letter
+      index = ord(letter) - 65
+      shifted_index = (index + shift) % 26
+      shifted_code = shifted_index + 65
+      shifted_letter = chr(shifted_code)
+    return shifted_letter
 
 def caesar_cipher(message, shift):
     '''Caesar Cipher. 
@@ -107,10 +108,12 @@ def shift_by_letter(letter, letter_shift):
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     if letter == " ":
         return " "
-    shift_letter_pos = ord(shift_letter) - ord("A")
-    letter_pos = ord(letter) - ord("A")
-    shifted_pos = (shift_letter_pos + letter_pos) % 26
-    shifted_letter = chr(shifted_pos + ord("A"))
+    
+    shift_letter_num = ord(shift_letter) - 65
+    letter_num = ord(letter) - 65
+    shifted_num = (shift_letter_num + letter_num) % 26
+    shifted_letter = chr(shifted_num + 65)
+    
     return shifted_letter
 
 def vigenere_cipher(message, key):
@@ -146,6 +149,7 @@ def vigenere_cipher(message, key):
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     ciphered_message = ""
     count = 0
+    alphabet_size = 26
 
     for letter in message:
         if letter == " ":
@@ -153,8 +157,8 @@ def vigenere_cipher(message, key):
             count += 1
             continue
         letter_shift = key[count % len(key)]
-        shift = ord(letter_shift) - ord('A')
-        ciphered_letter = chr((ord(letter) - ord('A') + shift) % 26 + ord('A'))
+        shift = ord(letter_shift) - 65
+        ciphered_letter = chr((ord(letter) - 65 + shift) % alphabet_size + 65)
         ciphered_message += ciphered_letter
         count += 1
 
