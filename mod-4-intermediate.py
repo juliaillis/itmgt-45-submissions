@@ -38,14 +38,13 @@ def shift_letter(letter, shift):
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     #Note: The part of the code to wrap around feature of the letters was generated with the assistance of CHATGPT
-    if letter == " ":
-        return " "
+    if letter == ' ':
+        return ' '
     else:
-      index = ord(letter) - 65
-      shifted_index = (index + shift) % 26
-      shifted_code = shifted_index + 65
-      shifted_letter = chr(shifted_code)
-    return shifted_letter
+        uni_code = ord(letter) - ord('A')
+        shifted_uni_code = (uni_code + shift) % 26
+        shifted_letter = chr(shifted_uni_code + ord('A'))
+        return shifted_letter
 
 def caesar_cipher(message, shift):
     '''Caesar Cipher. 
@@ -67,19 +66,16 @@ def caesar_cipher(message, shift):
     '''
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    #STEP 1: shifting each character in the message (based on code from shift letter problem)
-    def shift_char(character, shift):
-        index = ord(character)
-        shifted_index = (index + shift)
-        shifted_code = shifted_index
-        shifted_char = chr(shifted_code)
-        return shifted_char
-    #STEP 2: solving caesar_cipher
-    ciphered_message = ""
-    for character in message:
-        ciphered_char = shift_char(character, shift)
-        ciphered_message += ciphered_char
-    return ciphered_message
+    shifted_message = ""
+    for char in message:
+        if char == " ":
+            shifted_message += " "
+        else:
+            char_code = ord(char)
+            shifted_code = (char_code - 65 + shift) % 26 + 65
+            shifted_char = chr(shifted_code)
+            shifted_message += shifted_char
+    return shifted_message
 
 def shift_by_letter(letter, letter_shift):
     '''Shift By Letter. 
@@ -111,10 +107,11 @@ def shift_by_letter(letter, letter_shift):
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     if letter == " ":
         return " "
-    else:
-        shift = ord(letter_shift)
-        new_letter = chr((ord(letter) - 65 + shift) % 26 + 65)
-        return new_letter
+    shift_letter_pos = ord(shift_letter) - ord("A")
+    letter_pos = ord(letter) - ord("A")
+    shifted_pos = (shift_letter_pos + letter_pos) % 26
+    shifted_letter = chr(shifted_pos + ord("A"))
+    return shifted_letter
 
 def vigenere_cipher(message, key):
     '''Vigenere Cipher. 
@@ -147,15 +144,18 @@ def vigenere_cipher(message, key):
     '''
     # Replace `pass` with your code. 
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    # STEP 1: Convert message and key to numerical values
-    message = message.replace(' ', '')
+    ciphered_message = ""
+    count = 0
 
-    # STEP 2: Encrypt message
-    cipher_char_count = len(message) // len(key)
-    fin_cipher_char_count = int(cipher_char_count)
-    if len(message) // len(key) != 0:
-        extra_char = len(message) % len(key)
-        final_char = int(extra_char)
-        print(key * fin_cipher_char_count + key[:final_char])
-    else:
-      print(key * fin_cipher_char_count)
+    for letter in message:
+        if letter == " ":
+            ciphered_message += " "
+            count += 1
+            continue
+        letter_shift = key[count % len(key)]
+        shift = ord(letter_shift) - ord('A')
+        ciphered_letter = chr((ord(letter) - ord('A') + shift) % 26 + ord('A'))
+        ciphered_message += ciphered_letter
+        count += 1
+
+    return ciphered_message
